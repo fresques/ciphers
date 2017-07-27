@@ -22,38 +22,48 @@ with open(inFile,'r') as i:
 
 
 # my function to convert letters to numbers and viceversa
-def toNum(charStr):
-	charStr = charStr.lower()
-	numStr = []
-	for character in charStr:
-	    number = ord(character) - 96
-	    numStr.append(number)
-	return np.array(numStr)
+# def toNum(charStr):
+# 	charStr = charStr.lower()
+# 	numStr = []
+# 	for character in charStr:
+# 	    number = ord(character) - 96
+# 	    numStr.append(number)
+# 	return np.array(numStr)
 
-def toChar(numStr):
-	charStr = ""
-	for number in numStr:
-	    character = chr(number + 96)
-	    charStr = charStr + character
-	return charStr
+# def toChar(numStr):
+# 	charStr = ""
+# 	for number in numStr:
+# 	    character = chr(number + 96)
+# 	    charStr = charStr + character
+# 	return charStr
 
-repeatedKey = (key*int(np.ceil(len(textIn)/len(key))))[0:len(textIn)]
-repeatedKey2 = toNum(repeatedKey)
+# repeatedKey = (key*int(np.ceil(len(textIn)/len(key))))[0:len(textIn)]
+# repeatedKey2 = toNum(repeatedKey)
 
-# translate letters to numbers
-textIn2 = toNum(textIn)
 
-if   direction=='encrypt':
-	textOut = (textIn2 + repeatedKey2) % 26
-elif direction=='decrypt':
-	textOut = (textIn2 - repeatedKey2 + 1) % 26
+textOut = ""
+i=len(key)
+for eachIn in textIn:
+	if eachIn.isalpha():
+		i=i % len(key)
+		key2 = ord(key[i].lower()) - 96
+		eachIn2 = ord(eachIn.lower()) - 96
+		if direction=='encrypt':
+			eachOut = (eachIn2 + key2) % 26
+		elif direction=='decrypt':
+			eachOut = (eachIn2 - key2 + 1) % 26
+		eachOut = chr(eachOut + 96)
+		if eachIn.isupper():
+			eachOut = eachOut.upper()
+	else:
+		eachOut = eachIn
+	textOut = textOut + eachOut
 
-# translate text out to letters
-textOut2 = toChar(textOut)
+			
 
 
 with open(outFile,'w') as o:
-    for line in textOut2:
+    for line in textOut:
         o.write(line)
 
 
