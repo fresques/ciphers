@@ -42,10 +42,10 @@ with open(inFile,'r') as i:
 
 
 textOut = ""
-i=len(key)
+i=-1
 for eachIn in textIn:
 	if eachIn.isalpha():
-		i=i % len(key)
+		i=(i+1) % len(key)
 		key2 = ord(key[i].lower()) - 96
 		eachIn2 = ord(eachIn.lower()) - 96
 		if direction=='encrypt':
