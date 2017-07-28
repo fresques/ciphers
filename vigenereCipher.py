@@ -46,13 +46,13 @@ i=-1
 for eachIn in textIn:
 	if eachIn.isalpha():
 		i=(i+1) % len(key)
-		key2 = ord(key[i].lower()) - 96
-		eachIn2 = ord(eachIn.lower()) - 96
+		key2 = ord(key[i].lower()) - 97
+		eachIn2 = ord(eachIn.lower()) - 97
 		if direction=='encrypt':
 			eachOut = (eachIn2 + key2) % 26
 		elif direction=='decrypt':
-			eachOut = (eachIn2 - key2 + 1) % 26
-		eachOut = chr(eachOut + 96)
+			eachOut = (eachIn2 - key2) % 26
+		eachOut = chr(eachOut + 97)
 		if eachIn.isupper():
 			eachOut = eachOut.upper()
 	else:
